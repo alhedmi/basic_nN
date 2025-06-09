@@ -72,8 +72,11 @@ for i = 1:numberOfEpoch
     % the samples
     [grad, returnedLoss] = calcGradientOfLossFunction(uVector, xLabelVector, w);
     
-
-    % Adaptive Hyperparameters:
+    %#############################################################################################
+    % ##### Uncomment this if you want to try out (self learning) Adaptive Hyperparameters for the ADAM method...
+    %         ...THOUGH beware that you'll have to change some things.######
+    
+    % Adaptive Hyperparameters:    
 
     % % Update alpha (stepsize) based on loss trends
     % if i > 1
@@ -92,7 +95,7 @@ for i = 1:numberOfEpoch
     % gradient_variance = var(grad);
     % mBeta_1 = max(0.85, min(0.95, 0.9 + 1 * gradient_variance)); 
     % mBeta_2 = max(0.97, min(0.999, 0.99 + 1 * gradient_variance)); 
-    % 
+    % ####################################################################################################
 
     %Step (3) 
     % Optimize the weights of the neural network using the previously calculated gradient vector.
@@ -103,7 +106,7 @@ for i = 1:numberOfEpoch
     % grad = grad / (norm(grad) + 1e-8); % Normalize to avoid tiny updates
 
 
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%NEW%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ADAM %%%%%%%%%%%%%%%%%%%%%%%%%%%
         % w.r.t first
     mk = mBeta_1 * mk + (1 - mBeta_1)*grad;
 
@@ -122,7 +125,7 @@ for i = 1:numberOfEpoch
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
 
-    % %----------------------------------------------------------------
+    % %----------------------Dynamic Learnning Rate Decay ------------------------------------------
     % modifier = 1;
     % decay_dyn = init_decay/(1 - (returnedLoss*modifier));
     % learningRate = Initial_learningRate / (1 - (decay_dyn^2));
@@ -323,7 +326,7 @@ x2 = myActivation(w12_2*x1_2 + w22_2*x2_2 + w32_2*x3_2 + w2b_2, a, b);
 
 end
 
-%The activation function, you might want to extend this function to take
+%The activation functions, you might want to extend some of the functions or add new ones to take
 %additional activitation functions under account
 
 
